@@ -132,7 +132,6 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Rectangle.cpp" />
-    <ClCompile Include="Shape.cpp" />
     <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>

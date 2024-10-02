@@ -9,19 +9,18 @@ public:
 	Board(const unsigned int InWidth, const unsigned int InHeight);
 	~Board() = default;
 
-	void AddShape(std::shared_ptr<Shape> shape);
 	void Draw();
 	void Undo();
 	void Clear();
+
 	void Save(const std::string& filename);
 	void Load(const std::string& filename);
-	void SetPixel(const unsigned int x, const unsigned int y, const char c);
 
-	std::vector<std::vector<char>>& GetBoard() { return board; }
+	void AddShape(std::shared_ptr<Shape> shape);
+	void SetPixel(const unsigned int x, const unsigned int y, const char c);
 private:
 	std::vector<std::vector<char>> board;
 	std::vector<std::shared_ptr<Shape>> shapes;
 	unsigned int width;
 	unsigned int height;
 };
-
