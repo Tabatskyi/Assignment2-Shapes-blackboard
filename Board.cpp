@@ -17,9 +17,9 @@ Board::Board(const unsigned int InWidth, const unsigned int InHeight) : width(In
 		}
 	}
 }
-void Board::SetPixel(const unsigned int x, const unsigned int y, const char c)
+void Board::SetPixel(const unsigned int x, const unsigned int y)
 {
-	board[y][x] = c;
+	board[y][x] = '*';
 }
 
 void Board::AddShape(std::shared_ptr<Shape> shape)

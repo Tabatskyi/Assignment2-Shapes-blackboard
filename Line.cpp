@@ -8,18 +8,23 @@ void Line::Draw(Board& board)
 		if (yA > yB)
 			std::swap(yA, yB);
 		for (int y = yA; y <= yB; y++)
-			board.SetPixel(xA, y, '*');
+			board.SetPixel(xA, y);
 	}
 	else if (yA == yB)  // horizontal line
 	{
 		if (xA > xB)
 			std::swap(xA, xB);
 		for (int x = xA; x <= xB; x++)
-			board.SetPixel(x, yA, '*');
+			board.SetPixel(x, yA);
 	}
 	else  // https://www.geeksforgeeks.org/bresenhams-line-generation-algorithm/
 	{
-		if (xA > xB)
+		if (xA > xB && yA > yB)
+		{
+			std::swap(xA, xB);
+			std::swap(yA, yB);
+		}
+		else if (xA > xB && yA < yB)
 		{
 			std::swap(xA, xB);
 			std::swap(yA, yB);
@@ -28,11 +33,16 @@ void Line::Draw(Board& board)
 		int slope_error = m - (xB - xA);
 		for (int x = xA, y = yA; x <= xB; x++)
 		{
-			board.SetPixel(x, y, '*');
+			board.SetPixel(x, y);
 			slope_error += m;
 			if (slope_error >= 0)
 			{
 				y++;
+				slope_error -= 2 * (xB - xA);
+			}
+			else
+			{
+				y--;
 				slope_error -= 2 * (xB - xA);
 			}
 		}

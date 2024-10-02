@@ -17,7 +17,7 @@ public:
 	void Load(const std::string& filename);
 
 	void AddShape(std::shared_ptr<Shape> shape);
-	void SetPixel(const unsigned int x, const unsigned int y, const char c);
+	void SetPixel(const unsigned int x, const unsigned int y);
 private:
 	std::vector<std::vector<char>> board;
 	std::vector<std::shared_ptr<Shape>> shapes;
