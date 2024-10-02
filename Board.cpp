@@ -42,7 +42,6 @@ void Board::Draw()
 {
 	for (std::shared_ptr<Shape> shape : shapes)
 		shape->Draw(*this);
-	
 
 	for (unsigned int i = 0; i < height; ++i)
 	{

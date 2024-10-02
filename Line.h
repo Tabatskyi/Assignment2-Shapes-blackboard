@@ -3,12 +3,13 @@
 class Line : public Shape
 {
 public:
-	Line(const unsigned int InLength, const unsigned int InX, const unsigned int InY) : length(InLength), x(InX), y(InY) {}
+	Line(const unsigned int InAX, const unsigned int InAY, const unsigned int InBX, const unsigned int InBY) : xA(InAX), yA(InAY), xB(InBX), yB(InBY) {}
 	~Line() = default;
 	void Draw(Board& board) override;
 private:
-	unsigned int length;
-	unsigned int x;
-	unsigned int y;
+	unsigned int xA;
+	unsigned int yA;
+	unsigned int xB;
+	unsigned int yB;
 };
 
