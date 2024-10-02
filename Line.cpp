@@ -30,21 +30,16 @@ void Line::Draw(Board& board)
 			std::swap(yA, yB);
 		}
 		int m = 2 * (yB - yA);
-		int slope_error = m - (xB - xA);
+		int slopeError = m - (xB - xA);
 		for (int x = xA, y = yA; x <= xB; x++)
 		{
 			board.SetPixel(x, y);
-			slope_error += m;
-			if (slope_error >= 0)
-			{
+			slopeError += m;
+			if (slopeError >= 0)
 				y++;
-				slope_error -= 2 * (xB - xA);
-			}
 			else
-			{
 				y--;
-				slope_error -= 2 * (xB - xA);
-			}
+			slopeError -= 2 * (xB - xA);
 		}
 	}
 }

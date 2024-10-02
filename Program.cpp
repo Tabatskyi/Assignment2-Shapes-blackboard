@@ -16,6 +16,7 @@ int main()
 	std::shared_ptr<Line> line5 = std::make_shared<Line>(30, 15, 40, 10);
 	std::shared_ptr<Line> line6 = std::make_shared<Line>(42, 10, 32, 15);
 	//std::shared_ptr<Rectangle> rectangle = std::make_shared<Rectangle>(10, 5, 5, 10);
+	std::shared_ptr<Circle> circle = std::make_shared<Circle>(5, 10, 10);
 
 	board->AddShape(line1);
 	board->AddShape(line2);
@@ -24,6 +25,7 @@ int main()
 	board->AddShape(line5);
 	board->AddShape(line6);
 	//board->AddShape(rectangle);
+	board->AddShape(circle);
 	board->Draw();
 	return 0;
 }
