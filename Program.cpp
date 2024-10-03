@@ -16,17 +16,17 @@ int main()
 	std::shared_ptr<Line> line5 = std::make_shared<Line>(30, 15, 40, 10);
 	std::shared_ptr<Line> line6 = std::make_shared<Line>(42, 10, 32, 18);
 	std::shared_ptr<Circle> circle = std::make_shared<Circle>(5, 20, 10);
-	std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>(10, 5, 30, 10);
+	std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>(15, 5, 30, 10);
 	std::shared_ptr<Parallelogram> parallelogram = std::make_shared<Parallelogram>(10, 5, 30, 15, 5);
 
-	board->AddShape(line1);
-	board->AddShape(line2);
-	board->AddShape(line3);
-	board->AddShape(line4);
-	board->AddShape(line5);
-	board->AddShape(line6);
+	//board->AddShape(line1);
+	//board->AddShape(line2);
+	//board->AddShape(line3);
+	//board->AddShape(line4);
+	//board->AddShape(line5);
+	//board->AddShape(line6);
 	//board->AddShape(circle);
-	//board->AddShape(triangle);
+	board->AddShape(triangle);
 	//board->AddShape(parallelogram);
 	board->Draw();
 	return 0;

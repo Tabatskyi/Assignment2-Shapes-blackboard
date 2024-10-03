@@ -12,4 +12,3 @@ public:
 	virtual unsigned long long GetId() const = 0;
 	virtual std::string GetParameters() const = 0;
 };
-

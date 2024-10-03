@@ -15,4 +15,3 @@ private:
 	unsigned int x;
 	unsigned int y;
 };
-
