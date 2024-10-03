@@ -28,8 +28,8 @@ int main()
 	//board->AddShape(line4);
 	//board->AddShape(line5);
 	//board->AddShape(line6);
-	//board->AddShape(circle);
-	board->AddShape(triangle);
+	board->AddShape(circle);
+	//board->AddShape(triangle);
 	//board->AddShape(parallelogram);
 	board->Draw();
 	return 0;
