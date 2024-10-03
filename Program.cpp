@@ -5,10 +5,13 @@
 #include "Circle.h"
 #include "Line.h"
 #include "Board.h"
+#include "Parser.h"
 
 int main() 
 {
 	std::unique_ptr<Board> board = std::make_unique<Board>(60, 20);
+	std::unique_ptr<Parser> parser = std::make_unique<Parser>();
+
 	std::shared_ptr<Line> line1 = std::make_shared<Line>(10, 5, 20, 15);
 	std::shared_ptr<Line> line2 = std::make_shared<Line>(10, 5, 20, 5);
 	std::shared_ptr<Line> line3 = std::make_shared<Line>(22, 15, 12, 5);

@@ -12,6 +12,5 @@ public:
 	std::string GetParameters() const override { return std::to_string(radius) + " " + std::to_string(x) + " " + std::to_string(y); }
 private:
 	int radius;
-	unsigned int x;
-	unsigned int y;
+	unsigned int x, y;
 };

@@ -131,6 +131,7 @@
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Parallelogram.cpp" />
+    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Triangle.cpp" />
   </ItemGroup>
@@ -139,6 +140,7 @@
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Line.h" />
     <ClInclude Include="Parallelogram.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Triangle.h" />
   </ItemGroup>

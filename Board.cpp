@@ -8,9 +8,9 @@ Board::Board(const unsigned int InWidth, const unsigned int InHeight) : width(In
 		board[i].resize(width);
 		for (unsigned int j = 0; j < width; ++j)
 		{
-			if (i == 0 || i == height - 1)
+			if (i < BORDER_WIDTH || (i >= height - BORDER_WIDTH && i <= height))
 				board[i][j] = '-';
-			else if (j == 0 || j == width - 1)
+			else if (j < BORDER_WIDTH || (j >= width - BORDER_WIDTH && j <= width))
 				board[i][j] = '|';
 			else
 				board[i][j] = ' ';
@@ -19,6 +19,8 @@ Board::Board(const unsigned int InWidth, const unsigned int InHeight) : width(In
 }
 void Board::SetPixel(const unsigned int x, const unsigned int y)
 {
+	if (x < BORDER_WIDTH || x >= width - BORDER_WIDTH || y < BORDER_WIDTH || y >= height - BORDER_WIDTH)
+		return;
 	board[y][x] = '*';
 }
 

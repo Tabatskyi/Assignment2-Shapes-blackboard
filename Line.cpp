@@ -35,9 +35,8 @@ void Line::Draw(Board& board)
             std::swap(yA, yB);
         }
 
-        int dx = abs(xB - xA), dy = abs(yB - yA);
-
-        int error = 2 * dy - dx;
+        int dX = abs(xB - xA), dY = abs(yB - yA);
+        int error = 2 * dY - dX;
         int yStep = (yA < yB) ? 1 : -1;
 
         for (int x = xA, y = yA; x <= xB; x++) 
@@ -47,11 +46,11 @@ void Line::Draw(Board& board)
             else 
                 board.SetPixel(x, y); 
 
-            error -= dy;
+            error -= dY;
             if (error < 0) 
             {
                 y += yStep;
-                error += dx;
+                error += dX;
             }
         }
 	}

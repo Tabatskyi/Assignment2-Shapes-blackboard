@@ -21,6 +21,6 @@ public:
 private:
 	std::vector<std::vector<char>> board;
 	std::vector<std::shared_ptr<Shape>> shapes;
-	unsigned int width;
-	unsigned int height;
+	unsigned int width, height;
+	const unsigned int BORDER_WIDTH = 2;
 };
