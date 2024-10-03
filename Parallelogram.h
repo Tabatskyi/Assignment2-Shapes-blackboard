@@ -3,7 +3,10 @@
 class Parallelogram : public Shape
 {
 public:
-	Parallelogram(const unsigned int InWidth, const unsigned int InX0, const unsigned int InY0, const unsigned int InX1, const unsigned int Iny1) : width(InWidth), x0(InX0), y0(InY0), x1(InX1), y1(Iny1) {}
+	Parallelogram(const unsigned int InX0, const unsigned int InY0, const unsigned int InX1, const unsigned int Iny1, const unsigned int InWidth) :
+		width(InWidth), x0(InX0), y0(InY0), x1(InX1), y1(Iny1) {}
+	Parallelogram(const unsigned int InX0, const unsigned int InY0, const unsigned int InX1, const unsigned int Iny1) :
+		width(InX0 - InX1), x0(InX0), y0(InY0), x1(InX1), y1(Iny1) {}
 	~Parallelogram() = default;
 	void Draw(Board& board) override;
 
