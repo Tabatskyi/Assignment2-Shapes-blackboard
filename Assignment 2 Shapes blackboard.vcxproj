@@ -130,6 +130,7 @@
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Line.cpp" />
+    <ClCompile Include="Parallelogram.cpp" />
     <ClCompile Include="Program.cpp" />
     <ClCompile Include="Rectangle.cpp" />
     <ClCompile Include="Triangle.cpp" />
@@ -138,6 +139,7 @@
     <ClInclude Include="Board.h" />
     <ClInclude Include="Circle.h" />
     <ClInclude Include="Line.h" />
+    <ClInclude Include="Parallelogram.h" />
     <ClInclude Include="Rectangle.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="Triangle.h" />
