@@ -2,6 +2,11 @@
 
 Board::Board(const unsigned int InWidth, const unsigned int InHeight, const unsigned int InBorderWidth) : width(InWidth), height(InHeight), borderWidth(InBorderWidth)
 {
+	Initialize();
+}
+
+void Board::Initialize()
+{
 	board.resize(height);
 	for (unsigned int i = 0; i < height; ++i)
 	{
@@ -17,6 +22,7 @@ Board::Board(const unsigned int InWidth, const unsigned int InHeight, const unsi
 		}
 	}
 }
+
 void Board::SetPixel(const unsigned int x, const unsigned int y)
 {
 	if (x < borderWidth || x >= width - borderWidth || y < borderWidth || y >= height - borderWidth)
@@ -37,11 +43,12 @@ void Board::Undo()
 
 void Board::Clear()
 {
-	shapes.clear();
+	Initialize();
 }
 
 void Board::Draw()
 {
+	Initialize();
 	for (std::shared_ptr<Shape> shape : shapes)
 		shape->Draw(*this);
 

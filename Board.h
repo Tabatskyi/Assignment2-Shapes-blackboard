@@ -19,6 +19,8 @@ public:
 	std::vector<std::string> Dump();
 	std::vector<std::shared_ptr<Shape>> GetShapes() const { return shapes; }
 private:
+	void Initialize();
+
 	std::vector<std::vector<char>> board;
 	std::vector<std::shared_ptr<Shape>> shapes;
 	unsigned int width, height;
