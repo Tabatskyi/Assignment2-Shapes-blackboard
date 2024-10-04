@@ -13,40 +13,39 @@
 
 static void add(std::vector<std::string> shapeParameters, std::unique_ptr<Board>& board)
 {
-	if (shapeParameters[0] == "line")
+	int shapeParametersSize = shapeParameters.size();
+	if (shapeParameters[0] == "line" && shapeParametersSize == 5)
 	{
 		std::shared_ptr<Line> line = std::make_shared<Line>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
 		board->AddShape(line);
 	}
-	else if (shapeParameters[0] == "circle")
+	else if (shapeParameters[0] == "circle" && shapeParametersSize == 4)
 	{
 		std::shared_ptr<Circle> circle = std::make_shared<Circle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]));
 		board->AddShape(circle);
 	}
-	else if (shapeParameters[0] == "triangle")
+	else if (shapeParameters[0] == "triangle" && shapeParametersSize == 5)
 	{
 		std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
 		board->AddShape(triangle);
 	}
-	else if (shapeParameters[0] == "parallelogram")
+	else if (shapeParameters[0] == "parallelogram" && shapeParametersSize == 6)
 	{
 		std::shared_ptr<Parallelogram> parallelogram = std::make_shared<Parallelogram>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]), stoi(shapeParameters[5]));
 		board->AddShape(parallelogram);
 	}
-	else if (shapeParameters[0] == "rectangle")
+	else if (shapeParameters[0] == "rectangle" && shapeParametersSize == 5)
 	{
 		std::shared_ptr<Rectangle> rectangle = std::make_shared<Rectangle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
 		board->AddShape(rectangle);
 	}
-	else if (shapeParameters[0] == "square")
+	else if (shapeParameters[0] == "square" && shapeParametersSize == 4)
 	{
 		std::shared_ptr<Square> square = std::make_shared<Square>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]));
 		board->AddShape(square);
 	}
 	else
-	{
 		std::cout << "Invalid shape" << endl;
-	}
 }
 
 static void save(const std::string& filename, const std::vector<std::string>& shapes)
