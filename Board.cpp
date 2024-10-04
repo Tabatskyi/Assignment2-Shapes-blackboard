@@ -53,9 +53,10 @@ void Board::Draw()
 	}
 }
 
-std::vector<std::string> Board::DumpShapes()
+std::vector<std::string> Board::Dump()
 {
 	std::vector<std::string> dump;
+	dump.push_back(std::format("board {} {} {}", width, height, borderWidth));
 	for (std::shared_ptr<Shape> shape : shapes)
 		dump.push_back(shape->Dump());
 	return dump;

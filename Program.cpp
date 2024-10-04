@@ -62,7 +62,7 @@ static void save(const std::string& filename, const std::vector<std::string>& sh
 		std::cout << "Unable to open file" << endl;
 }
 
-static void load(const std::string& filename, std::unique_ptr<Board>& board, std::unique_ptr<Parser>& parser)
+static std::unique_ptr<Board> load(const std::string& filename, std::unique_ptr<Parser>& parser)
 {
 	std::ifstream file(filename);
 	std::vector<std::string> fileContent;
@@ -80,14 +80,29 @@ static void load(const std::string& filename, std::unique_ptr<Board>& board, std
 	else
 	{
 		std::cout << "Unable to open file" << endl;
-		return;
+		return nullptr;
 	}
-	board->Clear();
-	for (const std::string& shape : fileContent)
+	std::unique_ptr<Board> board;
+	std::vector<std::string> boardParameters = parser->Parse(fileContent[0], " ");
+	if (boardParameters[0] == "board" && boardParameters.size() == 4)
+		board = std::make_unique<Board>(stoi(boardParameters[1]), stoi(boardParameters[2]), stoi(boardParameters[3]));
+	else
+	{
+		std::cout << "Invalid board parameters" << endl;
+		return nullptr;
+	}
+
+	if (fileContent.size() == 1)
+		return board;
+
+	std::vector<std::string> shapes(fileContent.begin() + 1, fileContent.end());
+
+	for (const std::string& shape : shapes)
 	{
 		std::vector<std::string> shapeParameters = parser->Parse(shape, " ");
 		add(shapeParameters, board);
 	}
+	return board;
 }
 
 int main()
@@ -119,7 +134,7 @@ int main()
 		}
 		else if (command == "load" && parsedInput.size() == 2)
 		{
-			load(parsedInput[1], board, parser);
+			board = load(parsedInput[1], parser);
 			continue;
 		}
 		
@@ -164,7 +179,7 @@ int main()
 		}
 		else if (command == "save")
 		{
-			save(parsedInput[1], board->DumpShapes());
+			save(parsedInput[1], board->Dump());
 		}
 		else if (command == "add")
 		{

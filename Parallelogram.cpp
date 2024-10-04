@@ -2,7 +2,7 @@
 #include "Board.h"
 #include "Line.h"
 
-void Parallelogram::Draw(Board& board)
+void Parallelogram::Draw(Board& board) const
 {
 	int height = y1 - y0;
 	int xA = x0, yA = y0;

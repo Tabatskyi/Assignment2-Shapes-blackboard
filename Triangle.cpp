@@ -2,7 +2,7 @@
 #include "Board.h"
 #include "Line.h"
 
-void Triangle::Draw(Board& board)
+void Triangle::Draw(Board& board) const
 {
 	if (height == 0)
 	{
