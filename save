@@ -1,2 +1,4 @@
-line 2 2 7 6
-line 2 2 56 12
+board 60 20 2
+line 2 3 55 7
+circle 5 5 5
+square 5 5 5

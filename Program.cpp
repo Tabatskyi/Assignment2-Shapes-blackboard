@@ -155,7 +155,7 @@ int main()
 		{
 			std::cout << "Available shapes: " << std::endl;
 			std::cout << "line startPointX startPointY endPointX endPointY" << std::endl;
-			std::cout << "circle radius startPointX startPointY" << std::endl;
+			std::cout << "circle radius centerPointX centerPointY" << std::endl;
 			std::cout << "triangle base height startPointX startPointY" << std::endl;
 			std::cout << "parallelogram startPointX startPointY endPointX endPointY baseWidth" << std::endl;
 			std::cout << "rectangle base height startPointX startPointY" << std::endl;
