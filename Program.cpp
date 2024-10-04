@@ -15,31 +15,6 @@ int main()
 	std::unique_ptr<Board> board = std::make_unique<Board>(60, 20);
 	std::unique_ptr<Parser> parser = std::make_unique<Parser>();
 
-	std::shared_ptr<Line> line1 = std::make_shared<Line>(10, 5, 20, 15);
-	std::shared_ptr<Line> line2 = std::make_shared<Line>(10, 5, 20, 5);
-	std::shared_ptr<Line> line3 = std::make_shared<Line>(22, 15, 12, 5);
-	std::shared_ptr<Line> line4 = std::make_shared<Line>(10, 5, 10, 15);
-	std::shared_ptr<Line> line5 = std::make_shared<Line>(30, 15, 40, 10);
-	std::shared_ptr<Line> line6 = std::make_shared<Line>(42, 10, 32, 18);
-	std::shared_ptr<Circle> circle = std::make_shared<Circle>(5, 20, 10);
-	std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>(15, 5, 30, 10);
-	std::shared_ptr<Parallelogram> parallelogram = std::make_shared<Parallelogram>(10, 5, 30, 15, 5);
-	std::shared_ptr<Rectangle> rectangle = std::make_shared<Rectangle>(10, 5, 30, 15);
-	std::shared_ptr<Square> square = std::make_shared<Square>(10, 2, 2);
-
-	//board->AddShape(line1);
-	//board->AddShape(line2);
-	//board->AddShape(line3);
-	//board->AddShape(line4);
-	//board->AddShape(line5);
-	//board->AddShape(line6);
-	board->AddShape(circle);
-	//board->AddShape(triangle);
-	//board->AddShape(parallelogram);
-	//board->AddShape(rectangle);
-	board->AddShape(square);
-	board->Draw();
-
 	std::string input;
 	do
 	{
@@ -53,59 +28,142 @@ int main()
 		parsedInput = parser->Parse(input, " ");
 
 		std::string command = parsedInput[0];
-		if (command == "draw")
+		
+		switch (parsedInput.size())
 		{
-			board->Draw();
-		}
-		else if (command == "list")
-		{
-			cout << "Shapes:" << endl;
-			for (std::shared_ptr<Shape> shape : board->GetShapes())
-				cout << std::format("ID: {}\n\t{}", shape->GetId(), shape->GetParameters()) << endl;
-		}
-		else if (command == "shapes")
-		{
-			std::cout << "Available shapes: " << std::endl;
-			std::cout << "line startPointX startPointY endPointX endPointY\n circle radius startPointX startPointY\n triangle base height startPointX startPointY\n parallelogram startPointX startPointY endPointX endPointY baseWidth\n rectangle base height startPointX startPointY\n square side startPointX startPointY" << std::endl;
-		}/*
-		else if (command == "view")
-		{
-			if (parsedInput.size() < 2)
+		case 1:
+			if (command == "draw")
 			{
-				cout << "Invalid input" << endl;
-				continue;
+				board->Draw();
+				break;
 			}
-			string type = parsedInput[1];
-			if (!any_of(type.begin(), type.end(), isdigit))
+			else if (command == "list")
 			{
-				if (parsedInput.size() > 2)
-					for (int i = 2; i < parsedInput.size(); i++)
-						type += " " + parsedInput[i];
-
-				view(type);
+				cout << "Shapes:" << endl;
+				for (std::shared_ptr<Shape> shape : board->GetShapes())
+					cout << std::format("ID: {}\n\t{}", shape->GetId(), shape->GetParameters()) << endl;
+				break;
+			}
+			else if (command == "shapes")
+			{
+				std::cout << "Available shapes: " << std::endl;
+				std::cout << "line startPointX startPointY endPointX endPointY" << std::endl;
+				std::cout << "circle radius startPointX startPointY" << std::endl;
+				std::cout << "triangle base height startPointX startPointY" << std::endl;
+				std::cout << "parallelogram startPointX startPointY endPointX endPointY baseWidth" << std::endl;
+				std::cout << "rectangle base height startPointX startPointY" << std::endl;
+				std::cout << "square side startPointX startPointY" << std::endl;
+				break;
+			}
+			else if (command == "help")
+			{
+				std::cout << "Commands: draw: draws board, list: lists all added shapes, shapes: lists all available shapes, save: saves board state to file, load: loads board state from file, help, quit" << endl;
+				break;
+			}
+			else if (command == "quit")
+			{
+				std::cout << "Goodbye!" << endl;
+				break;
+			}
+			else if (command == "undo")
+			{
+				board->Undo();
+				break;
+			}
+			else if (command == "clear")
+			{
+				board->Clear();
+				break;
 			}
 			else
 			{
-				if (all_of(type.begin(), type.end(), isdigit))
-				{
-					unsigned long ticketID = stoul(type);
-					view(ticketID);
-				}
-				else if (parser->Parse(type, ".").size() == 3)
-				{
-					string date = type;
-					string number = parsedInput[2];
-					view(date, number);
-				}
+				std::cout << "Invalid command" << endl;
+				break;
 			}
-		}*/
-		else if (command == "help")
-			cout << "Commands:\n check date flightNo\n book date flightNo place Username\n return ID\n view ID\n view Username\n view date flightNo\n help\n quit" << endl;
-		else if (command == "quit")
-			cout << "Goodbye!" << endl;
-		else
-			cout << "Invalid command" << endl;
+		case 2:
+			if (command == "save")
+			{
+				board->Save(parsedInput[1]);
+				break;
+			}
+			else if (command == "load")
+			{
+				board->Load(parsedInput[1]);
+				break;
+			}
+			else
+			{
+				std::cout << "Invalid command" << endl;
+				break;
+			}
+		case 5:
+			if (command != "add")
+			{
+				std::cout << "Invalid command" << endl;
+				break;
+			}
+			else if (parsedInput[1] == "circle")
+			{
+				std::shared_ptr<Circle> circle = std::make_shared<Circle>(stoi(parsedInput[2]), stoi(parsedInput[3]), stoi(parsedInput[4]));
+				board->AddShape(circle);
+				break;
+			}
+			else if (parsedInput[1] == "square")
+			{
+				std::shared_ptr<Square> square = std::make_shared<Square>(stoi(parsedInput[2]), stoi(parsedInput[3]), stoi(parsedInput[4]));
+				board->AddShape(square);
+				break;
+			}
+			else
+			{
+				std::cout << "Invalid command" << endl;
+				break;
+			}
+		case 6:
+			if (command != "add")
+			{
+				std::cout << "Invalid command" << endl;
+				break;
+			}
+			else if (parsedInput[1] == "line")
+			{
+				std::shared_ptr<Line> line = std::make_shared<Line>(stoi(parsedInput[2]), stoi(parsedInput[3]), stoi(parsedInput[4]), stoi(parsedInput[5]));
+				board->AddShape(line);
+				break;
+			}
+			else if (parsedInput[1] == "triangle")
+			{
+				std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>(stoi(parsedInput[2]), stoi(parsedInput[3]), stoi(parsedInput[4]), stoi(parsedInput[5]));
+				board->AddShape(triangle);
+				break;
+			}
+			else if (parsedInput[1] == "rectangle")
+			{
+				std::shared_ptr<Rectangle> rectangle = std::make_shared<Rectangle>(stoi(parsedInput[2]), stoi(parsedInput[3]), stoi(parsedInput[4]), stoi(parsedInput[5]));
+				board->AddShape(rectangle);
+				break;
+			}
+			else
+			{
+				std::cout << "Invalid command" << endl;
+				break;
+			}
+		case 7:
+			if (parsedInput[1] == "parallelogram")
+			{
+				std::shared_ptr<Parallelogram> parallelogram = std::make_shared<Parallelogram>(stoi(parsedInput[1]), stoi(parsedInput[2]), stoi(parsedInput[3]), stoi(parsedInput[4]), stoi(parsedInput[5]));
+				board->AddShape(parallelogram);
+				break;
+			}
+			else
+			{
+				std::cout << "Invalid command" << endl;
+				break;
+			}
+		default:
+			std::cout << "Invalid command" << endl;
+		}
+		
 	} while (input != "quit");
-
 	return 0;
 }
