@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <format>
 #include "Shape.h"
 #include "Parallelogram.h"
@@ -45,6 +46,47 @@ static void add(std::vector<std::string> shapeParameters, std::unique_ptr<Board>
 	else
 	{
 		std::cout << "Invalid shape" << endl;
+	}
+}
+
+static void save(const std::string& filename, const std::vector<std::string>& shapes)
+{
+	std::ofstream file(filename);
+	if (file.is_open())
+	{
+		for (const std::string& shape : shapes)
+			file << shape << std::endl;
+		file.close();
+	}
+	else
+		std::cout << "Unable to open file" << endl;
+}
+
+static void load(const std::string& filename, std::unique_ptr<Board>& board, std::unique_ptr<Parser>& parser)
+{
+	std::ifstream file(filename);
+	std::vector<std::string> fileContent;
+
+	if (file.is_open())
+	{
+		std::string line;
+		while (getline(file, line))
+		{
+			if (!line.empty())
+				fileContent.push_back(line);
+		}
+		file.close();
+	}
+	else
+	{
+		std::cout << "Unable to open file" << endl;
+		return;
+	}
+	board->Clear();
+	for (const std::string& shape : fileContent)
+	{
+		std::vector<std::string> shapeParameters = parser->Parse(shape, " ");
+		add(shapeParameters, board);
 	}
 }
 
@@ -105,11 +147,11 @@ int main()
 			}
 			else if (command == "save")
 			{
-				//save(parsedInput[1], board->DumpShapes());
+				save(parsedInput[1], board->DumpShapes());
 			}
 			else if (command == "load")
 			{
-				//load(parced[1], board);
+				load(parsedInput[1], board, parser);
 			}
 			else if (command == "add")
 			{
