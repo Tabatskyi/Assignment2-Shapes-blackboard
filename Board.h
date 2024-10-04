@@ -1,5 +1,5 @@
 #pragma once
-#include <iostream>
+#include <memory>
 #include <vector>
 #include "Shape.h"
 
@@ -18,6 +18,8 @@ public:
 
 	void AddShape(std::shared_ptr<Shape> shape);
 	void SetPixel(const unsigned int x, const unsigned int y);
+
+	std::vector<std::shared_ptr<Shape>> GetShapes() const { return shapes; }
 private:
 	std::vector<std::vector<char>> board;
 	std::vector<std::shared_ptr<Shape>> shapes;

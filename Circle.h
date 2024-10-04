@@ -9,7 +9,7 @@ public:
 	void Draw(Board& board) override;
 
 	unsigned long long GetId() const override { return std::hash<unsigned int>{}(radius + x + y); }
-	std::string GetParameters() const override { return std::to_string(radius) + " " + std::to_string(x) + " " + std::to_string(y); }
+	std::string GetParameters() const override { return std::format("Circle, radius {}, start at X{}, Y{}", radius, x, y); }
 private:
 	int radius;
 	unsigned int x, y;

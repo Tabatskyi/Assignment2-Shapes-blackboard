@@ -9,7 +9,7 @@ public:
 	void Draw(Board& board) override;
 
 	unsigned long long GetId() const override { return std::hash<unsigned int>{}(base + height + x + y); }
-	std::string GetParameters() const override { return std::to_string(base) + " " + std::to_string(height) + " " + std::to_string(x) + " " + std::to_string(y); }
+	std::string GetParameters() const override { return std::format("Triangle, base {}, height {}, start at X{}, Y{}", base, height, x, y); }
 private:
 	unsigned int base, height, x, y;
 };
