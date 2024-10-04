@@ -14,7 +14,7 @@ void Board::Initialize()
 		for (unsigned int j = 0; j < width; ++j)
 		{
 			if (i < borderWidth || (i >= height - borderWidth && i <= height))
-				board[i][j] = '-';
+				board[i][j] = '=';
 			else if (j < borderWidth || (j >= width - borderWidth && j <= width))
 				board[i][j] = '|';
 			else
@@ -43,7 +43,7 @@ void Board::Undo()
 
 void Board::Clear()
 {
-	Initialize();
+	shapes.clear();
 }
 
 void Board::Draw()

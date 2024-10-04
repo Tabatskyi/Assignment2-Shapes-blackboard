@@ -136,20 +136,6 @@ int main()
 			board = load(parsedInput[1], parser);
 			continue;
 		}
-		
-		if (board == nullptr)
-			continue;
-
-		if (command == "draw")
-		{
-			board->Draw();
-		}
-		else if (command == "list")
-		{
-			cout << "Shapes:" << endl;
-			for (std::shared_ptr<Shape> shape : board->GetShapes())
-				cout << std::format("ID: {}\n\t{}", shape->GetId(), shape->GetParameters()) << endl;
-		}
 		else if (command == "shapes")
 		{
 			std::cout << "Available shapes: " << std::endl;
@@ -167,6 +153,21 @@ int main()
 		else if (command == "quit")
 		{
 			std::cout << "Goodbye!" << endl;
+			break;
+		}
+		
+		if (board == nullptr)
+			continue;
+
+		if (command == "draw")
+		{
+			board->Draw();
+		}
+		else if (command == "list")
+		{
+			cout << "Shapes:" << endl;
+			for (std::shared_ptr<Shape> shape : board->GetShapes())
+				cout << std::format("ID: {}\n\t{}", shape->GetId(), shape->GetParameters()) << endl;
 		}
 		else if (command == "undo")
 		{
