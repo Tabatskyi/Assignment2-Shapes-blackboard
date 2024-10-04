@@ -53,12 +53,10 @@ void Board::Draw()
 	}
 }
 
-void Board::Save(const std::string& filename)
+std::vector<std::string> Board::DumpShapes()
 {
-	
-}
-
-void Board::Load(const std::string& filename)
-{
-
+	std::vector<std::string> dump;
+	for (std::shared_ptr<Shape> shape : shapes)
+		dump.push_back(shape->Dump());
+	return dump;
 }

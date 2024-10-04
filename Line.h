@@ -9,6 +9,7 @@ public:
 
 	unsigned long long GetId() const override { return std::hash<int>{}(xA + yA + xB + yB); }
 	std::string GetParameters() const override { return std::format("Line, from X{}, Y{} to X{}, Y{}", xA, yA, xB, yB); }
+	std::string Dump() const override { return std::format("line {} {} {} {}", xA, yA, xB, yB); }
 private:
 	int xA, yA, xB, yB;
 };

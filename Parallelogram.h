@@ -11,6 +11,7 @@ public:
 
 	unsigned long long GetId() const override { return std::hash<int>{}(x0 + y0 + x1 + y1); }
 	std::string GetParameters() const override { return std::format("Parallelogram, between A({}, {}) and B({}, {}) with base width {}", x0, y0, x1, y1, width); }
+	std::string Dump() const override { return std::format("parallelogram {} {} {} {} {}", x0, y0, x1, y1, width); }
 private:
 	int width, x0, y0, x1, y1;
 };
