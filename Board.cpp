@@ -1,6 +1,6 @@
 #include "Board.h"
 
-Board::Board(const unsigned int InWidth, const unsigned int InHeight) : width(InWidth), height(InHeight)
+Board::Board(const unsigned int InWidth, const unsigned int InHeight, const unsigned int InBorderWidth) : width(InWidth), height(InHeight), borderWidth(InBorderWidth)
 {
 	board.resize(height);
 	for (unsigned int i = 0; i < height; ++i)
@@ -8,9 +8,9 @@ Board::Board(const unsigned int InWidth, const unsigned int InHeight) : width(In
 		board[i].resize(width);
 		for (unsigned int j = 0; j < width; ++j)
 		{
-			if (i < BORDER_WIDTH || (i >= height - BORDER_WIDTH && i <= height))
+			if (i < borderWidth || (i >= height - borderWidth && i <= height))
 				board[i][j] = '-';
-			else if (j < BORDER_WIDTH || (j >= width - BORDER_WIDTH && j <= width))
+			else if (j < borderWidth || (j >= width - borderWidth && j <= width))
 				board[i][j] = '|';
 			else
 				board[i][j] = ' ';
@@ -19,7 +19,7 @@ Board::Board(const unsigned int InWidth, const unsigned int InHeight) : width(In
 }
 void Board::SetPixel(const unsigned int x, const unsigned int y)
 {
-	if (x < BORDER_WIDTH || x >= width - BORDER_WIDTH || y < BORDER_WIDTH || y >= height - BORDER_WIDTH)
+	if (x < borderWidth || x >= width - borderWidth || y < borderWidth || y >= height - borderWidth)
 		return;
 	board[y][x] = '*';
 }

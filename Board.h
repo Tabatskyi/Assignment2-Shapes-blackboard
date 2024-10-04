@@ -6,7 +6,7 @@
 class Board
 {
 public:
-	Board(const unsigned int InWidth, const unsigned int InHeight);
+	Board(const unsigned int InWidth, const unsigned int InHeight, const unsigned int InBorderWidth);
 	~Board() = default;
 
 	void Draw();
@@ -22,5 +22,5 @@ private:
 	std::vector<std::vector<char>> board;
 	std::vector<std::shared_ptr<Shape>> shapes;
 	unsigned int width, height;
-	const unsigned int BORDER_WIDTH = 2;
+	const unsigned int borderWidth = 2;
 };

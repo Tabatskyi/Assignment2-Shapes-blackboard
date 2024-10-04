@@ -90,16 +90,19 @@ static void load(const std::string& filename, std::unique_ptr<Board>& board, std
 	}
 }
 
-int main() 
+int main()
 {
-	std::unique_ptr<Board> board = std::make_unique<Board>(60, 20);
+	std::unique_ptr<Board> board;
 	std::unique_ptr<Parser> parser = std::make_unique<Parser>();
-
 	std::string input;
+
 	do
 	{
+		if (board == nullptr)
+			cout << "Initialize board with command: init width height borderWidth. Or load existing board" << endl;
+
+		std::vector<std::string> parsedInput;
 		cout << ">";
-		std::vector<string> parsedInput;
 		getline(cin, input);
 
 		if (input.empty())
@@ -108,58 +111,68 @@ int main()
 		parsedInput = parser->Parse(input, " ");
 
 		std::string command = parsedInput[0];
+
+		if (command == "init" && parsedInput.size() == 4) 
+		{
+			board = std::make_unique<Board>(stoi(parsedInput[1]), stoi(parsedInput[2]), stoi(parsedInput[3]));
+			continue;
+		}
+		else if (command == "load" && parsedInput.size() == 2)
+		{
+			load(parsedInput[1], board, parser);
+			continue;
+		}
 		
-			if (command == "draw")
-			{
-				board->Draw();
-			}
-			else if (command == "list")
-			{
-				cout << "Shapes:" << endl;
-				for (std::shared_ptr<Shape> shape : board->GetShapes())
-					cout << std::format("ID: {}\n\t{}", shape->GetId(), shape->GetParameters()) << endl;
-			}
-			else if (command == "shapes")
-			{
-				std::cout << "Available shapes: " << std::endl;
-				std::cout << "line startPointX startPointY endPointX endPointY" << std::endl;
-				std::cout << "circle radius startPointX startPointY" << std::endl;
-				std::cout << "triangle base height startPointX startPointY" << std::endl;
-				std::cout << "parallelogram startPointX startPointY endPointX endPointY baseWidth" << std::endl;
-				std::cout << "rectangle base height startPointX startPointY" << std::endl;
-				std::cout << "square side startPointX startPointY" << std::endl;
-			}
-			else if (command == "help")
-			{
-				std::cout << "Commands: draw: draws board, list: lists all added shapes, shapes: lists all available shapes, save: saves board state to file, load: loads board state from file, help, quit" << endl;
-			}
-			else if (command == "quit")
-			{
-				std::cout << "Goodbye!" << endl;
-			}
-			else if (command == "undo")
-			{
-				board->Undo();
-			}
-			else if (command == "clear")
-			{
-				board->Clear();
-			}
-			else if (command == "save")
-			{
-				save(parsedInput[1], board->DumpShapes());
-			}
-			else if (command == "load")
-			{
-				load(parsedInput[1], board, parser);
-			}
-			else if (command == "add")
-			{
-				std::vector<std::string> shapeParameters(parsedInput.begin() + 1, parsedInput.end());
-				add(shapeParameters, board);
-			}
-			else
-				std::cout << "Invalid command" << endl;
+		if (board == nullptr)
+			continue;
+
+		if (command == "draw")
+		{
+			board->Draw();
+		}
+		else if (command == "list")
+		{
+			cout << "Shapes:" << endl;
+			for (std::shared_ptr<Shape> shape : board->GetShapes())
+				cout << std::format("ID: {}\n\t{}", shape->GetId(), shape->GetParameters()) << endl;
+		}
+		else if (command == "shapes")
+		{
+			std::cout << "Available shapes: " << std::endl;
+			std::cout << "line startPointX startPointY endPointX endPointY" << std::endl;
+			std::cout << "circle radius startPointX startPointY" << std::endl;
+			std::cout << "triangle base height startPointX startPointY" << std::endl;
+			std::cout << "parallelogram startPointX startPointY endPointX endPointY baseWidth" << std::endl;
+			std::cout << "rectangle base height startPointX startPointY" << std::endl;
+			std::cout << "square side startPointX startPointY" << std::endl;
+		}
+		else if (command == "help")
+		{
+			std::cout << "Commands: draw: draws board, list: lists all added shapes, shapes: lists all available shapes, save: saves board state to file, load: loads board state from file, help, quit" << endl;
+		}
+		else if (command == "quit")
+		{
+			std::cout << "Goodbye!" << endl;
+		}
+		else if (command == "undo")
+		{
+			board->Undo();
+		}
+		else if (command == "clear")
+		{
+			board->Clear();
+		}
+		else if (command == "save")
+		{
+			save(parsedInput[1], board->DumpShapes());
+		}
+		else if (command == "add")
+		{
+			std::vector<std::string> shapeParameters(parsedInput.begin() + 1, parsedInput.end());
+			add(shapeParameters, board);
+		}
+		else
+			std::cout << "Invalid command" << endl;
 		
 	} while (input != "quit");
 	return 0;
