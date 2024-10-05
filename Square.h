@@ -1,5 +1,6 @@
 #pragma once
 #include "Parallelogram.h"
+
 class Square : public Parallelogram
 {
 public:
@@ -12,4 +13,3 @@ public:
 private:
 	int side, x, y;
 };
-

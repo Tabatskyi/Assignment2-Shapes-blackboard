@@ -1,5 +1,8 @@
 #pragma once
 #include "Shape.h"
+#include "Board.h"
+#include "Line.h"
+
 class Triangle : public Shape
 {
 public:

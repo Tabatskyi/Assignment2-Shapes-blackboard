@@ -1,6 +1,4 @@
 #include "Triangle.h"
-#include "Board.h"
-#include "Line.h"
 
 void Triangle::Draw(Board& board) const
 {

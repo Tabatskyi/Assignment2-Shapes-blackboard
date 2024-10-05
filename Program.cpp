@@ -1,15 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include <format>
-#include "Shape.h"
-#include "Parallelogram.h"
-#include "Rectangle.h"
-#include "Square.h"
-#include "Triangle.h"
-#include "Circle.h"
+
 #include "Line.h"
 #include "Board.h"
+#include "Shape.h"
 #include "Parser.h"
+#include "Circle.h"
+#include "Square.h"
+#include "Triangle.h"
+#include "Rectangle.h"
+#include "Parallelogram.h"
 
 static void add(std::vector<std::string> shapeParameters, std::unique_ptr<Board>& board)
 {
@@ -41,14 +42,14 @@ static void add(std::vector<std::string> shapeParameters, std::unique_ptr<Board>
 	}
 	else
 	{
-		std::cout << "Invalid shape" << endl;
+		std::cout << "Invalid shape" << std::endl;
 		return;
 	}
 	for (std::shared_ptr<Shape> s : board->GetShapes())
 	{
 		if (s->GetId() == shape->GetId())
 		{
-			std::cout << "Shape already exists" << endl;
+			std::cout << "Shape already exists" << std::endl;
 			return;
 		}
 	}
@@ -65,7 +66,7 @@ static void save(const std::string& filename, const std::vector<std::string>& sh
 		file.close();
 	}
 	else
-		std::cout << "Unable to open file" << endl;
+		std::cout << "Unable to open file" << std::endl;
 }
 
 static std::unique_ptr<Board> load(const std::string& filename, std::unique_ptr<Parser>& parser)
@@ -85,7 +86,7 @@ static std::unique_ptr<Board> load(const std::string& filename, std::unique_ptr<
 	}
 	else
 	{
-		std::cout << "Unable to open file" << endl;
+		std::cout << "Unable to open file" << std::endl;
 		return nullptr;
 	}
 	std::unique_ptr<Board> board;
@@ -94,7 +95,7 @@ static std::unique_ptr<Board> load(const std::string& filename, std::unique_ptr<
 		board = std::make_unique<Board>(stoi(boardParameters[1]), stoi(boardParameters[2]), stoi(boardParameters[3]));
 	else
 	{
-		std::cout << "Invalid board parameters" << endl;
+		std::cout << "Invalid board parameters" << std::endl;
 		return nullptr;
 	}
 
@@ -113,18 +114,18 @@ static std::unique_ptr<Board> load(const std::string& filename, std::unique_ptr<
 
 int main()
 {
+	std::string input;
 	std::unique_ptr<Board> board;
 	std::unique_ptr<Parser> parser = std::make_unique<Parser>();
-	std::string input;
 
 	do
 	{
 		if (board == nullptr)
-			cout << "Initialize board with command: init width height borderWidth. Or load existing board" << endl;
+			std::cout << "Initialize board with command: init width height borderWidth. Or load existing board" << std::endl;
 
 		std::vector<std::string> parsedInput;
-		cout << ">";
-		getline(cin, input);
+		std::cout << ">";
+		getline(std::cin, input);
 
 		if (input.empty())
 			continue;
@@ -155,15 +156,15 @@ int main()
 		}
 		else if (command == "help")
 		{
-			std::cout << "Commands: draw: draws board, list: lists all added shapes, shapes: lists all available shapes, save: saves board state to file, load: loads board state from file, help, quit" << endl;
+			std::cout << "Commands: draw: draws board, add: adds specified shape, list: lists all added shapes, shapes: lists all available shapes, save: saves board state to file, load: loads board state from file, help, quit" << std::endl;
 		}
 		else if (command == "quit")
 		{
-			std::cout << "Goodbye!" << endl;
+			std::cout << "Goodbye!" << std::endl;
 			break;
 		}
 		
-		if (board == nullptr)
+		if (board == nullptr)  // if board is not exist skip iteration
 			continue;
 
 		if (command == "draw")
@@ -172,9 +173,9 @@ int main()
 		}
 		else if (command == "list")
 		{
-			cout << "Shapes:" << endl;
+			std::cout << "Shapes:" << std::endl;
 			for (std::shared_ptr<Shape> shape : board->GetShapes())
-				cout << std::format("ID: {}\n\t{}", shape->GetId(), shape->GetParameters()) << endl;
+				std::cout << std::format("ID: {}\n\t{}", shape->GetId(), shape->GetParameters()) << std::endl;
 		}
 		else if (command == "undo")
 		{
@@ -194,7 +195,7 @@ int main()
 			add(shapeParameters, board);
 		}
 		else
-			std::cout << "Invalid command" << endl;
+			std::cout << "Invalid command" << std::endl;
 		
 	} while (input != "quit");
 	return 0;

@@ -1,5 +1,4 @@
 #include "Line.h"
-#include "Board.h"
 
 void Line::Draw(Board& board) const
 {

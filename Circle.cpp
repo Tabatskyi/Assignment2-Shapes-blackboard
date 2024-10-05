@@ -1,5 +1,4 @@
 #include "Circle.h"
-#include "Board.h"
 
 void Circle::Draw(Board& board) const // https://zingl.github.io/bresenham.html#:~:text=This%20page%20introduces%20a%20compact%20and%20efficient%20implementation%20of%20Bresenham's
 {

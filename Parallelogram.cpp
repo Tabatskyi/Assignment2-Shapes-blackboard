@@ -1,6 +1,4 @@
 #include "Parallelogram.h"
-#include "Board.h"
-#include "Line.h"
 
 void Parallelogram::Draw(Board& board) const
 {

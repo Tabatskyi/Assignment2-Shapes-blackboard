@@ -3,10 +3,8 @@
 #include <vector>
 #include <string>
 
-using namespace std;
-
 class Parser
 {
 public:
-	vector<string> Parse(const string& InString, const string& InSeparator) const;
+	std::vector<std::string> Parse(const std::string& InString, const std::string& InSeparator) const;
 };

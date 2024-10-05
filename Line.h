@@ -1,5 +1,7 @@
 #pragma once
 #include "Shape.h"
+#include "Board.h"
+
 class Line : public Shape
 {
 public:
