@@ -14,38 +14,45 @@
 static void add(std::vector<std::string> shapeParameters, std::unique_ptr<Board>& board)
 {
 	int shapeParametersSize = shapeParameters.size();
+	std::shared_ptr<Shape> shape;
 	if (shapeParameters[0] == "line" && shapeParametersSize == 5)
 	{
-		std::shared_ptr<Line> line = std::make_shared<Line>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
-		board->AddShape(line);
+		shape = std::make_shared<Line>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
 	}
 	else if (shapeParameters[0] == "circle" && shapeParametersSize == 4)
 	{
-		std::shared_ptr<Circle> circle = std::make_shared<Circle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]));
-		board->AddShape(circle);
+		shape = std::make_shared<Circle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]));
 	}
 	else if (shapeParameters[0] == "triangle" && shapeParametersSize == 5)
 	{
-		std::shared_ptr<Triangle> triangle = std::make_shared<Triangle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
-		board->AddShape(triangle);
+		shape = std::make_shared<Triangle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
 	}
 	else if (shapeParameters[0] == "parallelogram" && shapeParametersSize == 6)
 	{
-		std::shared_ptr<Parallelogram> parallelogram = std::make_shared<Parallelogram>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]), stoi(shapeParameters[5]));
-		board->AddShape(parallelogram);
+		shape = std::make_shared<Parallelogram>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]), stoi(shapeParameters[5]));
 	}
 	else if (shapeParameters[0] == "rectangle" && shapeParametersSize == 5)
 	{
-		std::shared_ptr<Rectangle> rectangle = std::make_shared<Rectangle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
-		board->AddShape(rectangle);
+		shape = std::make_shared<Rectangle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
 	}
 	else if (shapeParameters[0] == "square" && shapeParametersSize == 4)
 	{
-		std::shared_ptr<Square> square = std::make_shared<Square>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]));
-		board->AddShape(square);
+		shape = std::make_shared<Square>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]));
 	}
 	else
+	{
 		std::cout << "Invalid shape" << endl;
+		return;
+	}
+	for (std::shared_ptr<Shape> s : board->GetShapes())
+	{
+		if (s->GetId() == shape->GetId())
+		{
+			std::cout << "Shape already exists" << endl;
+			return;
+		}
+	}
+	board->AddShape(shape);
 }
 
 static void save(const std::string& filename, const std::vector<std::string>& shapes)
