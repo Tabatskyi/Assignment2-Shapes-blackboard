@@ -2,6 +2,8 @@
 
 Board::Board(const unsigned int InWidth, const unsigned int InHeight, const unsigned int InBorderWidth) : width(InWidth), height(InHeight), borderWidth(InBorderWidth)
 {
+	if (width == 0 || height == 0 || borderWidth >= width || borderWidth >= height)
+		throw std::invalid_argument("Invalid board dimensions");
 	Initialize();
 }
 

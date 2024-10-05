@@ -119,7 +119,17 @@ static std::unique_ptr<Board> load(const std::string& filename, std::unique_ptr<
 	std::unique_ptr<Board> board;
 	std::vector<std::string> boardParameters = parser->Parse(fileContent[0], " ");
 	if (boardParameters[0] == "board" && boardParameters.size() == 4)
-		board = std::make_unique<Board>(stoi(boardParameters[1]), stoi(boardParameters[2]), stoi(boardParameters[3]));
+	{
+		try 
+		{
+			board = std::make_unique<Board>(stoi(boardParameters[1]), stoi(boardParameters[2]), stoi(boardParameters[3]));
+		}
+		catch (const std::exception&)
+		{
+			std::cout << "Invalid board parameters" << std::endl;
+			return nullptr;
+		}
+	}
 	else
 	{
 		std::cout << "Invalid board parameters" << std::endl;
@@ -163,7 +173,14 @@ int main()
 
 		if (command == "init" && parsedInput.size() == 4) 
 		{
-			board = std::make_unique<Board>(stoi(parsedInput[1]), stoi(parsedInput[2]), stoi(parsedInput[3]));
+			try 
+			{
+				board = std::make_unique<Board>(stoi(parsedInput[1]), stoi(parsedInput[2]), stoi(parsedInput[3]));
+			}
+			catch (const std::exception&)
+			{
+				std::cout << "Invalid board parameters" << std::endl;
+			}
 			continue;
 		}
 		else if (command == "load" && parsedInput.size() == 2)
