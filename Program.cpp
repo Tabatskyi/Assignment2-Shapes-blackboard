@@ -12,47 +12,74 @@
 #include "Rectangle.h"
 #include "Parallelogram.h"
 
-static void add(std::vector<std::string> shapeParameters, std::unique_ptr<Board>& board)
+static std::vector<int> convertParameters(const std::vector<std::string>& parameters)
+{
+	std::vector<int> convertedParameters;
+	for (const std::string& parameter : parameters)
+	{
+		int convertedParameter;
+		try
+		{
+			convertedParameter = stoi(parameter);
+		}
+		catch (const std::exception&)
+		{
+			return {};
+		}
+		convertedParameters.push_back(convertedParameter);
+	}
+	return convertedParameters;
+}
+
+static void add(std::string shapeType, std::vector<int> shapeParameters, std::unique_ptr<Board>& board)
 {
 	int shapeParametersSize = shapeParameters.size();
 	std::shared_ptr<Shape> shape;
-	if (shapeParameters[0] == "line" && shapeParametersSize == 5)
+
+	for (int parameter : shapeParameters)
+		if (parameter > board->GetHeight() && parameter > board->GetWidth())
+		{
+			std::cout << "Shape bigger than board or completely outside" << std::endl;
+			return;
+		}
+	
+	if (shapeType == "circle" && shapeParametersSize == 3)
 	{
-		shape = std::make_shared<Line>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
+		shape = std::make_shared<Circle>(shapeParameters[0], shapeParameters[1], shapeParameters[2]);
 	}
-	else if (shapeParameters[0] == "circle" && shapeParametersSize == 4)
+	else if (shapeType == "square" && shapeParametersSize == 3)
 	{
-		shape = std::make_shared<Circle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]));
+		shape = std::make_shared<Square>(shapeParameters[0], shapeParameters[1], shapeParameters[2]);
 	}
-	else if (shapeParameters[0] == "triangle" && shapeParametersSize == 5)
+	else if (shapeType == "line" && shapeParametersSize == 4)
 	{
-		shape = std::make_shared<Triangle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
+		shape = std::make_shared<Line>(shapeParameters[0], shapeParameters[1], shapeParameters[2], shapeParameters[3]);
 	}
-	else if (shapeParameters[0] == "parallelogram" && shapeParametersSize == 6)
+	else  if (shapeType == "triangle" && shapeParametersSize == 4)
 	{
-		shape = std::make_shared<Parallelogram>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]), stoi(shapeParameters[5]));
+		shape = std::make_shared<Triangle>(shapeParameters[0], shapeParameters[1], shapeParameters[2], shapeParameters[3]);
 	}
-	else if (shapeParameters[0] == "rectangle" && shapeParametersSize == 5)
+	else if (shapeType == "rectangle" && shapeParametersSize == 4)
 	{
-		shape = std::make_shared<Rectangle>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]), stoi(shapeParameters[4]));
+		shape = std::make_shared<Rectangle>(shapeParameters[0], shapeParameters[1], shapeParameters[2], shapeParameters[3]);
 	}
-	else if (shapeParameters[0] == "square" && shapeParametersSize == 4)
+	else if (shapeType == "parallelogram" && shapeParametersSize == 5)
 	{
-		shape = std::make_shared<Square>(stoi(shapeParameters[1]), stoi(shapeParameters[2]), stoi(shapeParameters[3]));
+		shape = std::make_shared<Parallelogram>(shapeParameters[0], shapeParameters[1], shapeParameters[2], shapeParameters[3], shapeParameters[4]);
 	}
 	else
 	{
 		std::cout << "Invalid shape" << std::endl;
 		return;
 	}
+
 	for (std::shared_ptr<Shape> s : board->GetShapes())
-	{
 		if (s->GetId() == shape->GetId())
 		{
 			std::cout << "Shape already exists" << std::endl;
 			return;
 		}
-	}
+
 	board->AddShape(shape);
 }
 
@@ -107,7 +134,7 @@ static std::unique_ptr<Board> load(const std::string& filename, std::unique_ptr<
 	for (const std::string& shape : shapes)
 	{
 		std::vector<std::string> shapeParameters = parser->Parse(shape, " ");
-		add(shapeParameters, board);
+		add(shapeParameters[0], convertParameters(std::vector<std::string>(shapeParameters.begin() + 1, shapeParameters.end())), board);
 	}
 	return board;
 }
@@ -185,14 +212,14 @@ int main()
 		{
 			board->Clear();
 		}
-		else if (command == "save")
+		else if (command == "save" && parsedInput.size() == 2)
 		{
 			save(parsedInput[1], board->Dump());
 		}
-		else if (command == "add")
+		else if (command == "add" && parsedInput.size() > 3)
 		{
 			std::vector<std::string> shapeParameters(parsedInput.begin() + 1, parsedInput.end());
-			add(shapeParameters, board);
+			add(shapeParameters[0], convertParameters(std::vector<std::string>(shapeParameters.begin() + 1, shapeParameters.end())), board);
 		}
 		else
 			std::cout << "Invalid command" << std::endl;

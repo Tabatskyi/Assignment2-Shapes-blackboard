@@ -15,6 +15,9 @@ public:
 	void AddShape(std::shared_ptr<Shape> shape);
 	void SetPixel(const unsigned int x, const unsigned int y);
 
+	unsigned int GetWidth() const { return width; }
+	unsigned int GetHeight() const { return height; }
+
 	std::vector<std::string> Dump();
 	std::vector<std::shared_ptr<Shape>> GetShapes() const { return shapes; }
 private:
@@ -22,6 +25,5 @@ private:
 
 	std::vector<std::vector<char>> board;
 	std::vector<std::shared_ptr<Shape>> shapes;
-	unsigned int width, height;
-	const unsigned int borderWidth = 2;
+	unsigned int width, height, borderWidth;
 };
